@@ -1,0 +1,14 @@
+.container {
+  background: linear-gradient(to right, #C70039, #45046A);
+  width: 7rem;
+  height: 7rem;
+  margin-right: 0.93rem;
+  padding: 0.4rem;
+  flex: none;
+  border-radius: 50%;
+  scroll-snap-align: start;
+}
+
+.img {
+  border-radius: 50%;
+}
