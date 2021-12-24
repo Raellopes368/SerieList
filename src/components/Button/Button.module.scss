@@ -1,0 +1,26 @@
+.buttonContainer {
+  background: linear-gradient(to right, #C70039, #45046A);
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .3rem;
+  margin-top: 2rem;
+}
+
+.button {
+  width: 100%;
+  height: 100%;
+  background: #1A1A2E;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  &:active {
+    filter: brightness(0.8);
+  }
+}

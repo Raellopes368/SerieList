@@ -1,0 +1,28 @@
+.itemsWrapper {
+  margin-top: -4.25rem;
+  padding: 0;
+}
+
+.items {
+  display: flex;
+  position: relative;
+  overflow-x: scroll;
+  white-space: nowrap;
+  transition: all 0.2s;
+  transform: scale(0.98);
+  will-change: transform;
+  user-select: none;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  cursor: pointer;
+  list-style: none;
+}
+.items::-webkit-scrollbar {
+  display: none;
+}
+
+.items.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
+}
