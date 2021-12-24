@@ -1,0 +1,55 @@
+.container {
+  background-color: #1A1A2E;
+  height: 100vh;
+}
+
+.header {
+  height: 18.16rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  position: absolute;
+  top: 0;
+  filter: blur(6px);
+}
+
+.imgHeader {
+  object-fit: contain;
+}
+
+.imageContainer {
+  z-index: 8;
+  height: 18.16rem;
+  position: relative;
+}
+
+.content {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  background-color: #1A1A2E;
+  box-sizing: border-box;
+  padding: 2rem 3rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.seasons {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+
+
+.goBack {
+  position: absolute;
+  left: 1.2rem;
+  top: 2rem;
+  z-index: 9;
+}
