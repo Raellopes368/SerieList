@@ -1,0 +1,29 @@
+.container {
+  background-color: #152550;
+  height: 10.93rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.56rem;
+  padding-right: 2.18rem;
+  padding-top: 2.18rem;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 4.37rem;
+  background: -webkit-linear-gradient(#C70039
+  ,#45046A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.containerStories {
+  padding-left: 1.56rem;
+  padding-right: 1.56rem;
+}
