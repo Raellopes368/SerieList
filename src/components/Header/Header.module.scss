@@ -1,16 +1,14 @@
 .container {
   background-color: #152550;
-  height: 10.93rem;
+  height: 12rem;
 }
 
 .row {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  padding-left: 1.56rem;
-  padding-right: 2.18rem;
-  padding-top: 2.18rem;
+  justify-content: space-between;
+  padding: 1.5rem;
+
 }
 
 .title {
@@ -23,7 +21,3 @@
   -webkit-text-fill-color: transparent;
 }
 
-.containerStories {
-  padding-left: 1.56rem;
-  padding-right: 1.56rem;
-}
