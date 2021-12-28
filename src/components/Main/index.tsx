@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '../Card';
-import StoryList from '../StoryList';
 import styles from './Main.module.scss';
 
 export default function Main() {
