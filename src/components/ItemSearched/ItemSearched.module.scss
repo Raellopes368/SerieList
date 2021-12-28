@@ -1,7 +1,7 @@
 .container {
   display: flex;
-  height: 10rem;
-  padding-right: 1rem;
+  height: 12rem;
+  padding-right: .5rem;
   border-bottom: 1px solid #1f1f1f;
 }
 
@@ -15,7 +15,6 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-
 }
 
 .infoContainer {
@@ -39,4 +38,16 @@
 .link {
   color: #C70039;
   font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 1080px) {
+  .imageContainer{
+    width: 30rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .imageContainer {
+    width: 20rem;
+  }
 }
