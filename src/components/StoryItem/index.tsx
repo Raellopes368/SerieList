@@ -1,18 +1,26 @@
 import Link from 'next/link';
 import React from 'react';
+import { TSerieStory } from '../StoryList';
 import styles from './StoryItem.module.scss';
 
-export default function StoryItem() {
+export default function StoryItem({
+  id,
+  backdrop_path: imageBackground,
+  name,
+}: TSerieStory) {
   return (
-    <li className={styles.container}>
-      <Link href="/info/0">
-        <img
-          src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2020/04/Vikings.jpeg"
-          alt="Vikings"
-          className={styles.img}
-          draggable={false}
-        />
-      </Link>
+    <li className={styles.cardContainer}>
+      <div className={styles.container}>
+        <Link href={`/info/${id}`}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${imageBackground}`}
+            alt={name}
+            className={styles.img}
+            draggable={false}
+          />
+        </Link>
+      </div>
+      <span className={styles.serieName}>{name.length > 15 ? name.slice(0,15).concat('...') : name}</span>
     </li>
   );
 }

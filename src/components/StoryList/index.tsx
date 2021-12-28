@@ -7,7 +7,17 @@ let isDown = false;
 let startX = 0;
 let scrollLeft = 0;
 
-export default function StoryList() {
+export type TSerieStory = {
+  id: number;
+  backdrop_path: string;
+  name: string;
+};
+
+type StoryListProps = {
+  series: TSerieStory[];
+};
+
+export default function StoryList({ series }: StoryListProps) {
   const slider = useRef<HTMLUListElement>(null);
   const [active, setActive] = useState(false);
   function handleMouseDown(e: MouseEvent) {
@@ -61,21 +71,14 @@ export default function StoryList() {
         onMouseUp={() => setActive(false)}
         ref={slider}
       >
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
-        <StoryItem />
+        {series.map((serie) => (
+          <StoryItem
+            key={serie.id}
+            id={serie.id}
+            name={serie.name}
+            backdrop_path={serie.backdrop_path}
+          />
+        ))}
       </ul>
     </div>
   );

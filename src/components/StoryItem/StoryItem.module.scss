@@ -9,6 +9,20 @@
   scroll-snap-align: start;
 }
 
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .img {
   border-radius: 50%;
+}
+
+.serieName {
+  font-family: 'Roboto', sans-serif;
+  font-size: .8rem;
+  color: #fff;
+  margin-top: .8rem;
+  font-weight: 600;
 }
