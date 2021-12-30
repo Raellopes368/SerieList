@@ -1,9 +1,15 @@
 import React from 'react';
-import '../../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+import { AuthProvider } from '../hooks/AuthContext';
+import '../../styles/globals.scss'
+import '../services/firebase';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
 }
 
 export default MyApp
