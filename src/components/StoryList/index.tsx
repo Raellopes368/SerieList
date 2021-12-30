@@ -9,7 +9,8 @@ let scrollLeft = 0;
 
 export type TSerieStory = {
   id: number;
-  backdrop_path: string;
+  backdrop_path: string | undefined;
+  poster_path?: string;
   name: string;
 };
 
@@ -76,7 +77,7 @@ export default function StoryList({ series }: StoryListProps) {
             key={serie.id}
             id={serie.id}
             name={serie.name}
-            backdrop_path={serie.backdrop_path}
+            backdrop_path={serie.backdrop_path || serie.poster_path}
           />
         ))}
       </ul>
