@@ -7,20 +7,6 @@ export default function Main() {
     <div className={styles.mainContainer}>
       <main className={styles.container}>
         <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
       </main>
     </div>
   );
