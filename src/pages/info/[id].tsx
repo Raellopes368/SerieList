@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FiArrowLeft } from 'react-icons/fi';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { parseCookies } from 'nookies';
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import styles from './Info.module.scss';
 import api from '../../services/api';
+import { cookieName } from '../../hooks/AuthContext';
 
 export type ApiResponse = {
   id: number;
@@ -17,7 +19,16 @@ export type ApiResponse = {
   number_of_seasons: number;
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { [cookieName]: token } = parseCookies(context);
+  if(!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
   const { params } = context;
   if (params?.id) {
     const { id } = params;
@@ -56,7 +67,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export default function Info({
   serieInfo,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   return (
@@ -97,9 +108,3 @@ export default function Info({
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [`/info/[id]`],
-    fallback: true,
-  };
-}

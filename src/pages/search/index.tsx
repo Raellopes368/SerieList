@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FiSearch, FiArrowLeft } from 'react-icons/fi';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 import ItemSearched from '../../components/ItemSearched';
 import styles from './Search.module.scss';
 import api from '../../services/api';
+import { cookieName } from '../../hooks/AuthContext';
 
 let time: NodeJS.Timeout | null = null;
 
@@ -25,6 +28,25 @@ export type SerieInformation = {
 type TApiResponse = {
   results: SerieResponse[];
 };
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { [cookieName]: token } = parseCookies(ctx);
+  if(!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      },
+    }
+  }
+
+  return {
+    props: {
+      
+    }
+  }
+}
+
 export default function Search() {
   const [serieName, setSerieName] = useState('');
   const [serieList, setSerieList] = useState<SerieInformation[]>([]);
