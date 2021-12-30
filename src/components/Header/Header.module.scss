@@ -1,14 +1,14 @@
 .container {
   background-color: #152550;
   height: 12rem;
+  padding-top: .5rem;
 }
 
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
-
+  padding: 2rem 1.5rem;
 }
 
 .title {
@@ -21,3 +21,26 @@
   -webkit-text-fill-color: transparent;
 }
 
+
+.signOut {
+  position: absolute;
+  right: 1.5rem;
+  top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+
+  svg {
+    margin-left: 10px;
+  }
+  
+}
