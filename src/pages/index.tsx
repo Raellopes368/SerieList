@@ -74,7 +74,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       stories: [],
-      series: [],
+      series,
     },
   };
 };
