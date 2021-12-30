@@ -36,19 +36,19 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <input type="submit" value="Entrar" />
+
+        <span>Ou faça login usando</span>
+
+        <button type="button" onClick={signInWithGoogle}>
+          <img src="/images/googleIcon.svg" alt="Google Icon" /> 
+        </button>
+
         <span>
           Ainda não possui cadastro?{' '}
           <Link href="/register">
             <a>Cadastre-se</a>
           </Link>
         </span>
-
-        <span>Ou</span>
-
-        <button type="button" onClick={signInWithGoogle}>
-          <img src="/images/googleIcon.svg" alt="Google Icon" /> Faça login com
-          o Google
-        </button>
       </form>
     </div>
   );

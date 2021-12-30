@@ -2,10 +2,10 @@
   padding-top: 3rem;
   display: flex;
   height: 100vh;
-  background: var(--primary-color);
+  background: linear-gradient(to right, #327ba8, #7c07ba);
   justify-content: center;
 
-  color: #fff;
+  color: #222;
   font-family: Roboto, sans-serif;
 
   
@@ -14,29 +14,35 @@
 
 .title {
   font-size: 2.5rem;
-  background: -webkit-linear-gradient(#C70039,#45046A);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  // background: -webkit-linear-gradient(#C70039,#45046A);
+  color: #222;
+  // -webkit-background-clip: text;
+  // -webkit-text-fill-color: transparent;
 }
 
 .form {
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  input, button {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+
+  input{
     margin-top: 1.5rem;
     width: 18.75rem;
     height: 3.43rem;
-
-    border: solid 2px #C70039;
+    border: 0;
+    border-bottom: solid 1px #667;
     background: transparent;
-    border-radius: 5px;
+    // border-radius: 5px;
     outline: none;
 
-    color: #fff;
+    color: #667;
     font-size: 1rem;
 
     &::placeholder {
@@ -50,6 +56,11 @@
 
   input[type="submit"] {
     cursor: pointer;
+    background: linear-gradient(to right, #327ba8, #7c07ba);
+    height:  3rem;
+    border-radius: 55px;
+    color: #fff;
+    margin-top: 55px;
     &:active {
       filter: grayscale(.8);
     }
@@ -70,6 +81,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
+    background: transparent;
+    border: none;
+    margin-top: 15px;
     cursor: pointer;
 
     &:active {
