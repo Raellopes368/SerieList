@@ -1,12 +1,19 @@
 import React from 'react';
 import Card from '../Card';
+import { TSerieItem } from '../../pages';
 import styles from './Main.module.scss';
 
-export default function Main() {
+type MainProps = {
+  series: TSerieItem[]
+}
+
+export default function Main({ series }: MainProps) {
   return (
     <div className={styles.mainContainer}>
       <main className={styles.container}>
-        <Card />
+        {series.map(serie => (
+          <Card {...serie} />
+        ))}
       </main>
     </div>
   );
