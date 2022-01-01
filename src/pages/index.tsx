@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import Head from 'next/head';
 import { parseCookies } from 'nookies';
 import Header from '../components/Header';
@@ -10,7 +10,7 @@ import api from '../services/api';
 import { cookieName } from '../hooks/AuthContext';
 import styles from '../../styles/Home.module.css';
 import { database } from '../services/firebase';
-
+import { decriptToken } from '../utils/decriptToken';
 
 type TSerieStory = {
   id: number;
@@ -18,14 +18,13 @@ type TSerieStory = {
   name: string;
 };
 
-
-type TSerieItem = {
+export type TSerieItem = {
   id: string;
   serieId: number;
   name: string;
   image: string;
   watched: boolean;
-}
+};
 
 type TSerieResults = {
   results: TSerieStory[];
@@ -40,20 +39,26 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         destination: '/login',
         permanent: false,
       },
-    }
+    };
   }
 
-  const querySnapshot = await getDocs(collection(database, 'series'));
+  const tokenData: { user_id: string } = decriptToken(token);
+
+  const firebaseQuery = query(
+    collection(database, 'series'),
+    where('userId', '==', tokenData.user_id)
+  );
+
+  const querySnapshot = await getDocs(firebaseQuery);
   const series: TSerieItem[] = [];
 
-  querySnapshot.forEach(result => {
+  querySnapshot.forEach((result) => {
     const data = result.data() as TSerieItem;
     series.push({
       ...data,
       id: result.id,
     });
   });
-
 
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   try {
@@ -80,10 +85,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default function Home({
-  stories, series
+  stories,
+  series,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
-  console.log(series);
 
   return (
     <div className={styles.container}>
@@ -97,7 +101,7 @@ export default function Home({
       <main className={styles.main}>
         <Header />
         <StoryList series={stories} />
-        <Main />
+        <Main series={series}/>
       </main>
     </div>
   );
