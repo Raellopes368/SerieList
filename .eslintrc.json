@@ -40,6 +40,7 @@
         "import/no-unresolve": "off",
         "import/extensions": "off",
         "no-console": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "no-nested-ternary": "off"
     }
 }
