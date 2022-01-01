@@ -32,7 +32,7 @@ export default function Modal({ id, name, hasInMyList, close }: ModalProps) {
           />
         </div>
         <div className={styles.row}>
-          <span>Irei assistir</span>
+          <span>Quero assistir</span>
           <Switch
             color="success"
             checked={myList}
