@@ -80,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             episodes: data.number_of_episodes,
             seasons: data.number_of_seasons,
             watched: !!serieData[0]?.watched,
-            hasInMyList: true,
+            hasInMyList: !!serieData[0],
           },
         },
       };
