@@ -1,8 +1,19 @@
 .mainContainer {
+  margin-top: 2rem;
   display: flex;
-  justify-content: center;
+  align-items: center;
   padding-top: 1rem;
+  padding-bottom: 2rem;
+  flex-direction: column;
+
+  h2 {
+    font-family: Roboto, sans-serif;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
 }
+
+
 
 
 .container {
