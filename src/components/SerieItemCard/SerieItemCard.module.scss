@@ -1,7 +1,8 @@
 .container {
    width: 14rem;
-   height: 23rem;
+   height: 22rem;
    border-radius: 5px;
+   position: relative;
 }
 
 .imageContent {
@@ -34,8 +35,6 @@
   left: 2rem;
   font-family: 'Roboto', sans-serif;
 }
-
-
 
 
 @media (max-width: 820px) {
