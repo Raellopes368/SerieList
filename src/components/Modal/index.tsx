@@ -7,11 +7,31 @@ import styles from './Modal.module.scss';
 
 interface ModalProps extends SerieInfo {
   close: () => void;
+  handleSave: (serieInfo: SerieInfo) => Promise<void>;
 }
 
-export default function Modal({ id, name, hasInMyList, close }: ModalProps) {
-  const [watch, setWatch] = useState(false);
+export default function Modal({
+  id,
+  image,
+  name,
+  hasInMyList,
+  close,
+  handleSave,
+}: ModalProps) {
+  const [watched, setWatched] = useState(false);
   const [myList, setMyList] = useState(hasInMyList);
+
+  async function handleSaveSerieInfo() {
+    await handleSave({
+      id,
+      image,
+      name,
+      serieId: Number(id),
+      watched,
+      hasInMyList: watched || myList
+    });
+    close();
+  }
 
   return (
     <div className={styles.container}>
@@ -24,9 +44,9 @@ export default function Modal({ id, name, hasInMyList, close }: ModalProps) {
           <span>Já assisti</span>
           <Switch
             color="success"
-            checked={watch}
+            checked={watched}
             onClick={() => {
-              setWatch(!watch);
+              setWatched(!watched);
               setMyList(false);
             }}
           />
@@ -38,11 +58,11 @@ export default function Modal({ id, name, hasInMyList, close }: ModalProps) {
             checked={myList}
             onClick={() => {
               setMyList(!myList);
-              setWatch(false);
+              setWatched(false);
             }}
           />
         </div>
-        <Button onClick={() => console.log(id)} title="Confirmar" />
+        <Button onClick={handleSaveSerieInfo} title="Confirmar" />
       </div>
     </div>
   );
