@@ -41,6 +41,7 @@
         "import/extensions": "off",
         "no-console": "off",
         "import/prefer-default-export": "off",
-        "no-nested-ternary": "off"
+        "no-nested-ternary": "off",
+        "react/jsx-no-bind": "off"
     }
 }
