@@ -10,6 +10,7 @@ import {
   getDocs,
   setDoc,
   doc,
+  serverTimestamp,
 } from 'firebase/firestore';
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
@@ -54,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const queryFirebase = query(
       collection(database, 'series'),
       where('userId', '==', tokenData.user_id),
-      where('serieId', '==', id)
+      where('serieId', '==', Number(id))
     );
 
     const serieData: TSerieItem[] = [];
@@ -124,6 +125,7 @@ export default function Info({
       await setDoc(doc(seriesRef), {
         ...data,
         userId: user?.id,
+        createdAt: serverTimestamp(),
       });
       setSerieInfoState(data);
     } catch (error) {
