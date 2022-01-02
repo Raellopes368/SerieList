@@ -3,12 +3,19 @@ import { useRouter } from 'next/router';
 import { FiArrowLeft } from 'react-icons/fi';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { parseCookies } from 'nookies';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+} from 'firebase/firestore';
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import styles from './Info.module.scss';
 import api from '../../services/api';
-import { cookieName } from '../../hooks/AuthContext';
+import { cookieName, UseAuthContext } from '../../hooks/AuthContext';
 import { database } from '../../services/firebase';
 import { decriptToken } from '../../utils/decriptToken';
 import { TSerieItem } from '..';
@@ -23,9 +30,9 @@ export type ApiResponse = {
   number_of_seasons: number;
 };
 
-export interface SerieInfo extends TSerieItem{
+export interface SerieInfo extends TSerieItem {
   watched: boolean;
-  hasInMyList: boolean;
+  hasInMyList?: boolean;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -100,6 +107,30 @@ export default function Info({
   serieInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [showModal, setShowModal] = useState(false);
+  const { user } = UseAuthContext();
+  const [serieInfoState, setSerieInfoState] = useState(serieInfo);
+
+  async function handleSaveInformations(info: SerieInfo) {
+    const data = {
+      description: serieInfo.description,
+      episodes: serieInfo.episodes,
+      seasons: serieInfo.seasons,
+      ...info,
+    };
+
+    try {
+      const seriesRef = collection(database, 'series');
+
+      await setDoc(doc(seriesRef), {
+        ...data,
+        userId: user?.id,
+      });
+      setSerieInfoState(data);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   const router = useRouter();
   return (
     <main className={styles.container}>
@@ -110,31 +141,35 @@ export default function Info({
         <div className={styles.imageContainer}>
           <img
             className={styles.imgHeader}
-            src={serieInfo.image}
-            alt={serieInfo.name}
+            src={serieInfoState.image}
+            alt={serieInfoState.name}
           />
         </div>
         <img
           className={styles.img}
-          src={serieInfo.image}
-          alt={serieInfo.name}
+          src={serieInfoState.image}
+          alt={serieInfoState.name}
         />
       </header>
       <div className={styles.content}>
-        <h1 className={styles.title}>{serieInfo.name}</h1>
-        <span className={styles.seasons}>Temporadas: {serieInfo.seasons}</span>
-        <span className={styles.seasons}>Episódios: {serieInfo.episodes}</span>
+        <h1 className={styles.title}>{serieInfoState.name}</h1>
+        <span className={styles.seasons}>
+          Temporadas: {serieInfoState.seasons}
+        </span>
+        <span className={styles.seasons}>
+          Episódios: {serieInfoState.episodes}
+        </span>
         <span className={styles.seasons}>
           Status:{' '}
-          {serieInfo.hasInMyList
-            ? serieInfo.watched
+          {serieInfoState.hasInMyList
+            ? serieInfoState.watched
               ? 'Assistido'
               : 'Quero assistir'
             : 'Não está na minha lista'}
         </span>
-        <p>{serieInfo.description}</p>
+        <p>{serieInfoState.description}</p>
 
-        {!serieInfo.watched && (
+        {!serieInfoState.watched && (
           <Button
             onClick={() => setShowModal(true)}
             title="Salvar na minha lista"
@@ -142,7 +177,11 @@ export default function Info({
         )}
       </div>
       {showModal && (
-        <Modal {...serieInfo} close={() => setShowModal(false)} />
+        <Modal
+          {...serieInfoState}
+          handleSave={handleSaveInformations}
+          close={() => setShowModal(false)}
+        />
       )}
     </main>
   );
