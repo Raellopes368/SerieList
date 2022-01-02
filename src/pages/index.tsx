@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import Head from 'next/head';
 import { parseCookies } from 'nookies';
 import Header from '../components/Header';
-import Main from '../components/Main';
+import SerieListItem from '../components/SerieListItem';
 import StoryList from '../components/StoryList';
 import api from '../services/api';
 import { cookieName } from '../hooks/AuthContext';
 import styles from '../../styles/Home.module.css';
 import { database } from '../services/firebase';
 import { decriptToken } from '../utils/decriptToken';
+import { useSerieContext } from '../hooks/SerieListContext';
 
 type TSerieStory = {
   id: number;
@@ -24,6 +25,7 @@ export type TSerieItem = {
   name: string;
   image: string;
   watched: boolean;
+  createdAt?: Date;
 };
 
 type TSerieResults = {
@@ -46,7 +48,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const firebaseQuery = query(
     collection(database, 'series'),
-    where('userId', '==', tokenData.user_id)
+    where('userId', '==', tokenData.user_id),
+    orderBy('createdAt', 'asc')
   );
 
   const querySnapshot = await getDocs(firebaseQuery);
@@ -54,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   querySnapshot.forEach((result) => {
     const data = result.data() as TSerieItem;
+    delete data.createdAt;
     series.push({
       ...data,
       id: result.id,
@@ -88,6 +92,15 @@ export default function Home({
   stories,
   series,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { watcheds, setWatcheds, myList, setMyList } = useSerieContext();
+
+  useEffect(() => {
+    const watchedsInFirebase: TSerieItem[] = series.filter((serie: TSerieItem) => serie.watched);
+    const myListInFirebase: TSerieItem[] = series.filter((serie: TSerieItem) => !serie.watched);
+  
+    setWatcheds(watchedsInFirebase);
+    setMyList(myListInFirebase);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -101,7 +114,8 @@ export default function Home({
       <main className={styles.main}>
         <Header />
         <StoryList series={stories} />
-        <Main series={series}/>
+        {!!watcheds.length && <SerieListItem series={watcheds} title='Assistidos'/>}
+        {!!myList.length && <SerieListItem series={myList} title='Quero assistir'/>}
       </main>
     </div>
   );
