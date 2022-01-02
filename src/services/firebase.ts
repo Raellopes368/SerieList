@@ -9,6 +9,6 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_APP_PROJECT_ID
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export const database = getFirestore();
+export const database = getFirestore(app);
