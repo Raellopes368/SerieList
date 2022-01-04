@@ -44,11 +44,11 @@
     }
   }
 
-  input:not([type="submit"]) {
+  input {
     padding-left: 15px;
   }
 
-  input[type="submit"] {
+  button[type="submit"] {
     cursor: pointer;
     &:active {
       filter: grayscale(.8);
@@ -64,7 +64,7 @@
     }
   }
 
-  button {
+  button:not([type="submit"]) {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -82,4 +82,26 @@
     }
   }
   
+}
+
+
+.error {
+  color: #f12c2c;
+}
+
+.registerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.loadingContainer {
+  height: 100%;
+  width: 50px;
+  display: flex;
+  align-items: center;
 }
